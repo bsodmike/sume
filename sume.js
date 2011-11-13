@@ -12,7 +12,9 @@ Sume.searchResults = new Sume.SearchResultList()
 
 Sume.SearchEngine = {
   locations: { "ActiveSupport::Concern": "ActiveSupport/Concern.html",
-               "distance_of_time_in_words": "ActionView/Helpers/DateHelper/distance_of_time_in_words.html" },
+               "distance_of_time_in_words": "ActionView/Helpers/DateHelper/distance_of_time_in_words.html",
+               "find": "ActiveRecord/FinderMethods/find.html",
+               "ActiveRecord::FinderMethods.find": "ActiveRecord/FinderMethods/find.html" },
   search: function() {
     $('#search_autocomplete').hide();
     term = $.trim($('#search_autocomplete li.active').text())
@@ -24,7 +26,11 @@ Sume.SearchEngine = {
 
 Sume.AutoCompleteController = {
   autocomplete_data: ["ActiveSupport::Concern",
-                      "distance_of_time_in_words"],
+                      "distance_of_time_in_words",
+                      "find"],
+
+  fuzzies: [/[A-Z]\w+\.find/],
+  fuzzy_matches: ["ActiveRecord::FinderMethods.find"],
 
   search: function(term) {
     $('#search_autocomplete').show()
@@ -32,6 +38,17 @@ Sume.AutoCompleteController = {
     var results = $.grep(this.autocomplete_data, function(element) {
       return element.search(new RegExp(term, "i")) != -1;
     })
+
+    var fuzzy_results = $.grep(this.fuzzies, function(fuzzy_key) {
+      return term.match(fuzzy_key)
+    })
+
+    for (var key in fuzzy_results) {
+      index = $.inArray(fuzzy_results[key], this.fuzzies)
+      fuzzy_results[key] = this.fuzzy_matches[index]
+    }
+
+    results = results.concat(fuzzy_results)
 
 
     $.each(results, function (index, term) {
@@ -112,7 +129,9 @@ Sume.SearchView = Backbone.View.extend({
   },
 
   autocomplete: function(e) {
-    this.router.navigate('autocomplete/' + $(this.el).val(), true)
+    if ($(this.el).val().length > 2) {
+      this.router.navigate('autocomplete/' + $(this.el).val(), true)
+    }
   }
 })
 
