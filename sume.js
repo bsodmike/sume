@@ -31,6 +31,7 @@ Sume.AutoCompleteController = {
                       "dandilions"],
 
   search: function(term) {
+    $('#search_autocomplete').show()
     $('#search_autocomplete').empty()
     var results = $.grep(this.autocomplete_data, function(element) {
       return element.indexOf(term) != -1;
@@ -80,6 +81,7 @@ Sume.SearchResultView = Backbone.View.extend({
   },
 
   retrieve: function() {
+    $('search_autocomplete').hide();
     this.options.router.navigate('search/' + $.trim($(this.el).text()), true)
   }
 })
