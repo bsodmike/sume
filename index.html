@@ -9,7 +9,12 @@
     <script src='sume.js'></script>
   </head>
   <body>
-    <h2>Search:</h2> <input type='text' id='search'>
+    <script id='autocompleteTemplate' type='text/template'>
+      <%= model["term"] %>
+    </script>
+    <h2>Search:</h2> <input type='text' id='search' autocomplete='off'>
+    <ul id='search_autocomplete'>
+    </ul>
   </body>
 </html>
 

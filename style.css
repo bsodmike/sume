@@ -9,3 +9,25 @@ body {
   height: 50px;
   width: 500px;
 }
+
+#search_autocomplete {
+  list-style-type: none;
+  font-size: 13pt;
+  margin: 0px;
+  padding: 0px;
+  width: 500px;
+}
+
+#search_autocomplete li {
+  margin-bottom: 5px;
+  padding: 10px;
+}
+
+#search_autocomplete li:hover, #search_autocomplete .active {
+  background: #0069d6;
+  color: white;
+  font-weight: bold;
+}
+
+
+
