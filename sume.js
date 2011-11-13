@@ -17,12 +17,15 @@ Sume.SearchResultList = Backbone.Collection.extend({
 Sume.searchResults = new Sume.SearchResultList()
 
 Sume.SearchController = {
+  locations: { "ActiveSupport::Concern": "ActiveSupport/Concern.html?callback=?" },
   search: function(term) {
+    $.get(this.locations[term], function(html) {
+      $('#docs').html(html)
+    })
   }
 }
 
 Sume.AutoCompleteController = {
-  locations: { "ActiveSupport::Concern": "ActiveSupport/Concern.html" },
   autocomplete_data: ["ActiveSupport::Concern",
                       "distance_of_time_in_words",
                       "dandilions"],
@@ -48,8 +51,7 @@ Sume.SearchResultsView = Backbone.View.extend({
   },
 
   renderItem: function(model) {
-
-    var view = new Sume.SearchResultView({model : model})
+    var view = new Sume.SearchResultView({model : model, router: this.options.router})
     $(this.el).append(view.el)
   }
 })
@@ -58,7 +60,8 @@ Sume.SearchResultView = Backbone.View.extend({
   tagName: 'li',
 
   events: {
-    'hover': 'makeActive'
+    'hover': 'makeActive',
+    'click': 'retrieve'
   },
 
   initialize: function() {
@@ -72,7 +75,12 @@ Sume.SearchResultView = Backbone.View.extend({
   },
 
   makeActive: function() {
-    $(this.el)
+    $(this.el).siblings('.active').removeClass('active')
+    $(this.el).addClass('active')
+  },
+
+  retrieve: function() {
+    this.options.router.navigate('search/' + $.trim($(this.el).text()), true)
   }
 })
 
@@ -85,7 +93,7 @@ Sume.SearchRouter = Backbone.Router.extend({
 
   initialize: function() {
     new Sume.SearchView({router : this})
-    new Sume.SearchResultsView();
+    new Sume.SearchResultsView({router: this});
   },
 
   search: function(term) {
