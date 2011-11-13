@@ -1,0 +1,134 @@
+<div class="method">
+          <div class="title method-title" id="method-i-distance_of_time_in_words" style="">
+            
+              <a name="method-i-distance_of_time_in_words"></a><b>distance_of_time_in_words</b>(from_time, to_time = 0, include_seconds = false, options = {})
+            
+          </div>
+          
+          
+            <div class="description">
+              <p>Reports the approximate distance in time between two <a href="../../Time.html">Time</a>, <a href="../../Date.html">Date</a> or <a href="../../DateTime.html">DateTime</a> objects or integers as seconds. Set
+<tt>include_seconds</tt> to true if you want more detailed approximations
+when distance &lt; 1 min, 29 secs. Distances are reported based on the
+following table:</p>
+
+<pre class="xml" data-result="[object Object]" data-second_best="[object Object]">0 <span class="tag">&lt;<span class="title">-</span>&gt;</span> 29 secs                                                             # =&gt; less than a minute
+30 secs <span class="tag">&lt;<span class="title">-</span>&gt;</span> 1 min, 29 secs                                                # =&gt; 1 minute
+1 min, 30 secs <span class="tag">&lt;<span class="title">-</span>&gt;</span> 44 mins, 29 secs                                       # =&gt; [2..44] minutes
+44 mins, 30 secs <span class="tag">&lt;<span class="title">-</span>&gt;</span> 89 mins, 29 secs                                     # =&gt; about 1 hour
+89 mins, 30 secs <span class="tag">&lt;<span class="title">-</span>&gt;</span> 23 hrs, 59 mins, 29 secs                             # =&gt; about [2..24] hours
+23 hrs, 59 mins, 30 secs <span class="tag">&lt;<span class="title">-</span>&gt;</span> 41 hrs, 59 mins, 29 secs                     # =&gt; 1 day
+41 hrs, 59 mins, 30 secs  <span class="tag">&lt;<span class="title">-</span>&gt;</span> 29 days, 23 hrs, 59 mins, 29 secs           # =&gt; [2..29] days
+29 days, 23 hrs, 59 mins, 30 secs <span class="tag">&lt;<span class="title">-</span>&gt;</span> 59 days, 23 hrs, 59 mins, 29 secs   # =&gt; about 1 month
+59 days, 23 hrs, 59 mins, 30 secs <span class="tag">&lt;<span class="title">-</span>&gt;</span> 1 yr minus 1 sec                    # =&gt; [2..12] months
+1 yr <span class="tag">&lt;<span class="title">-</span>&gt;</span> 1 yr, 3 months                                                   # =&gt; about 1 year
+1 yr, 3 months <span class="tag">&lt;<span class="title">-</span>&gt;</span> 1 yr, 9 months                                         # =&gt; over 1 year
+1 yr, 9 months <span class="tag">&lt;<span class="title">-</span>&gt;</span> 2 yr minus 1 sec                                       # =&gt; almost 2 years
+2 yrs <span class="tag">&lt;<span class="title">-</span>&gt;</span> max time or date                                                # =&gt; (same rules as 1 yr)</pre>
+
+<p>With <tt>include_seconds</tt> = true and the difference &lt; 1 minute 29
+seconds:</p>
+
+<pre class="ruby" data-result="[object Object]" data-second_best="[object Object]"><span class="number">0</span>-<span class="number">4</span>   <span class="identifier">secs</span>      <span class="comment"># =&gt; less than 5 seconds</span>
+<span class="number">5</span>-<span class="number">9</span>   <span class="identifier">secs</span>      <span class="comment"># =&gt; less than 10 seconds</span>
+<span class="number">10</span>-<span class="number">19</span> <span class="identifier">secs</span>      <span class="comment"># =&gt; less than 20 seconds</span>
+<span class="number">20</span>-<span class="number">39</span> <span class="identifier">secs</span>      <span class="comment"># =&gt; half a minute</span>
+<span class="number">40</span>-<span class="number">59</span> <span class="identifier">secs</span>      <span class="comment"># =&gt; less than a minute</span>
+<span class="number">60</span>-<span class="number">89</span> <span class="identifier">secs</span>      <span class="comment"># =&gt; 1 minute</span></pre>
+
+<h4>Examples</h4>
+
+<pre class="ruby" data-result="[object Object]" data-second_best="[object Object]"><span class="identifier">from_time</span> = <span class="constant">Time</span>.<span class="identifier">now</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">50</span>.<span class="identifier">minutes</span>)        <span class="comment"># =&gt; about 1 hour</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="number">50</span>.<span class="identifier">minutes</span>.<span class="identifier">from_now</span>)           <span class="comment"># =&gt; about 1 hour</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">15</span>.<span class="identifier">seconds</span>)        <span class="comment"># =&gt; less than a minute</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">15</span>.<span class="identifier">seconds</span>, <span class="identifier"><span class="keyword">true</span></span>)  <span class="comment"># =&gt; less than 20 seconds</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="number">3</span>.<span class="identifier">years</span>.<span class="identifier">from_now</span>)              <span class="comment"># =&gt; about 3 years</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">60</span>.<span class="identifier">hours</span>)          <span class="comment"># =&gt; 3 days</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">45</span>.<span class="identifier">seconds</span>, <span class="identifier"><span class="keyword">true</span></span>)  <span class="comment"># =&gt; less than a minute</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> - <span class="number">45</span>.<span class="identifier">seconds</span>, <span class="identifier"><span class="keyword">true</span></span>)  <span class="comment"># =&gt; less than a minute</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="number">76</span>.<span class="identifier">seconds</span>.<span class="identifier">from_now</span>)           <span class="comment"># =&gt; 1 minute</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">1</span>.<span class="identifier">year</span> + <span class="number">3</span>.<span class="identifier">days</span>)   <span class="comment"># =&gt; about 1 year</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">3</span>.<span class="identifier">years</span> + <span class="number">6</span>.<span class="identifier">months</span>) <span class="comment"># =&gt; over 3 years</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">from_time</span> + <span class="number">4</span>.<span class="identifier">years</span> + <span class="number">9</span>.<span class="identifier">days</span> + <span class="number">30</span>.<span class="identifier">minutes</span> + <span class="number">5</span>.<span class="identifier">seconds</span>) <span class="comment"># =&gt; about 4 years</span>
+
+<span class="identifier">to_time</span> = <span class="constant">Time</span>.<span class="identifier">now</span> + <span class="number">6</span>.<span class="identifier">years</span> + <span class="number">19</span>.<span class="identifier">days</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">from_time</span>, <span class="identifier">to_time</span>, <span class="identifier"><span class="keyword">true</span></span>)     <span class="comment"># =&gt; about 6 years</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="identifier">to_time</span>, <span class="identifier">from_time</span>, <span class="identifier"><span class="keyword">true</span></span>)     <span class="comment"># =&gt; about 6 years</span>
+<span class="identifier">distance_of_time_in_words</span>(<span class="constant">Time</span>.<span class="identifier">now</span>, <span class="constant">Time</span>.<span class="identifier">now</span>)           <span class="comment"># =&gt; less than a minute</span></pre>
+            </div>
+          
+          
+          
+          
+          
+            
+            <div class="sourcecode">
+              
+              <p class="source-link">
+                Source: 
+                <a href="javascript:toggleSource('method-i-distance_of_time_in_words_source')" id="l_method-i-distance_of_time_in_words_source">show</a>
+                
+                  | <a href="https://github.com/rails/rails/blob/94a8e35e4c3751d8b58f0f8c710dad7dd7c98ee9/actionpack/lib/action_view/helpers/date_helper.rb#L67" target="_blank" class="github_url">on GitHub</a>
+                
+              </p>
+              <div id="method-i-distance_of_time_in_words_source" class="dyn-source">
+                <pre><span class="ruby-comment"># File actionpack/lib/action_view/helpers/date_helper.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword ruby-title">distance_of_time_in_words</span>(<span class="ruby-identifier">from_time</span>, <span class="ruby-identifier">to_time</span> = <span class="ruby-number">0</span>, <span class="ruby-identifier">include_seconds</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">from_time</span> = <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_time</span>)
+  <span class="ruby-identifier">to_time</span> = <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">to_time</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_time</span>)
+  <span class="ruby-identifier">distance_in_minutes</span> = (((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>)<span class="ruby-operator">/</span><span class="ruby-number">60</span>).<span class="ruby-identifier">round</span>
+  <span class="ruby-identifier">distance_in_seconds</span> = ((<span class="ruby-identifier">to_time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">from_time</span>).<span class="ruby-identifier">abs</span>).<span class="ruby-identifier">round</span>
+
+  <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">with_options</span> <span class="ruby-value">:locale</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:locale</span>], <span class="ruby-value">:scope</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:'datetime.distance_in_words'</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">locale</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-identifier">distance_in_minutes</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-number">0</span><span class="ruby-operator">..</span><span class="ruby-number">1</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">distance_in_minutes</span> <span class="ruby-operator">==</span> <span class="ruby-number">0</span> <span class="ruby-operator">?</span>
+               <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value">:less_than_x_minutes</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">1</span>) <span class="ruby-operator">:</span>
+               <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value">:x_minutes</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">distance_in_minutes</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">include_seconds</span>
+
+        <span class="ruby-keyword">case</span> <span class="ruby-identifier">distance_in_seconds</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-number">0</span><span class="ruby-operator">..</span><span class="ruby-number">4</span>   <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:less_than_x_seconds</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">5</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-number">5</span><span class="ruby-operator">..</span><span class="ruby-number">9</span>   <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:less_than_x_seconds</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">10</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-number">10</span><span class="ruby-operator">..</span><span class="ruby-number">19</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:less_than_x_seconds</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">20</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-number">20</span><span class="ruby-operator">..</span><span class="ruby-number">39</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:half_a_minute</span>
+          <span class="ruby-keyword">when</span> <span class="ruby-number">40</span><span class="ruby-operator">..</span><span class="ruby-number">59</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:less_than_x_minutes</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">1</span>
+          <span class="ruby-keyword">else</span>             <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:x_minutes</span>,           <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">1</span>
+        <span class="ruby-keyword">end</span>
+
+      <span class="ruby-keyword">when</span> <span class="ruby-number">2</span><span class="ruby-operator">..</span><span class="ruby-number">44</span>           <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:x_minutes</span>,      <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">distance_in_minutes</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-number">45</span><span class="ruby-operator">..</span><span class="ruby-number">89</span>          <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:about_x_hours</span>,  <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">1</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-number">90</span><span class="ruby-operator">..</span><span class="ruby-number">1439</span>        <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:about_x_hours</span>,  <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">distance_in_minutes</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-number">60.0</span>).<span class="ruby-identifier">round</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-number">1440</span><span class="ruby-operator">..</span><span class="ruby-number">2519</span>      <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:x_days</span>,         <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">1</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-number">2520</span><span class="ruby-operator">..</span><span class="ruby-number">43199</span>     <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:x_days</span>,         <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">distance_in_minutes</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-number">1440.0</span>).<span class="ruby-identifier">round</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-number">43200</span><span class="ruby-operator">..</span><span class="ruby-number">86399</span>    <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:about_x_months</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-number">1</span>
+      <span class="ruby-keyword">when</span> <span class="ruby-number">86400</span><span class="ruby-operator">..</span><span class="ruby-number">525599</span>   <span class="ruby-keyword">then</span> <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span> <span class="ruby-value">:x_months</span>,       <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">distance_in_minutes</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-number">43200.0</span>).<span class="ruby-identifier">round</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">fyear</span> = <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">year</span>
+        <span class="ruby-identifier">fyear</span> <span class="ruby-operator">+=</span> <span class="ruby-number">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">from_time</span>.<span class="ruby-identifier">month</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-number">3</span>
+        <span class="ruby-identifier">tyear</span> = <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">year</span>
+        <span class="ruby-identifier">tyear</span> <span class="ruby-operator">-=</span> <span class="ruby-number">1</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">to_time</span>.<span class="ruby-identifier">month</span> <span class="ruby-operator">&lt;</span> <span class="ruby-number">3</span>
+        <span class="ruby-identifier">leap_years</span> = (<span class="ruby-identifier">fyear</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tyear</span>) <span class="ruby-operator">?</span> <span class="ruby-number">0</span> <span class="ruby-operator">:</span> (<span class="ruby-identifier">fyear</span><span class="ruby-operator">..</span><span class="ruby-identifier">tyear</span>).<span class="ruby-identifier">count</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-constant">Date</span>.<span class="ruby-identifier">leap?</span>(<span class="ruby-identifier">x</span>)}
+        <span class="ruby-identifier">minute_offset_for_leap_year</span> = <span class="ruby-identifier">leap_years</span> * <span class="ruby-number">1440</span>
+        <span class="ruby-comment"># Discount the leap year days when calculating year distance.</span>
+        <span class="ruby-comment"># e.g. if there are 20 leap year days between 2 dates having the same day</span>
+        <span class="ruby-comment"># and month then the based on 365 days calculation</span>
+        <span class="ruby-comment"># the distance in years will come out to over 80 years when in written</span>
+        <span class="ruby-comment"># english it would read better as about 80 years.</span>
+        <span class="ruby-identifier">minutes_with_offset</span>         = <span class="ruby-identifier">distance_in_minutes</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">minute_offset_for_leap_year</span>
+        <span class="ruby-identifier">remainder</span>                   = (<span class="ruby-identifier">minutes_with_offset</span> <span class="ruby-operator">%</span> <span class="ruby-number">525600</span>)
+        <span class="ruby-identifier">distance_in_years</span>           = (<span class="ruby-identifier">minutes_with_offset</span> <span class="ruby-operator">/</span> <span class="ruby-number">525600</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">remainder</span> <span class="ruby-operator">&lt;</span> <span class="ruby-number">131400</span>
+          <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value">:about_x_years</span>,  <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">distance_in_years</span>)
+        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">remainder</span> <span class="ruby-operator">&lt;</span> <span class="ruby-number">394200</span>
+          <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value">:over_x_years</span>,   <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">distance_in_years</span>)
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">locale</span>.<span class="ruby-identifier">t</span>(<span class="ruby-value">:almost_x_years</span>, <span class="ruby-value">:count</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">distance_in_years</span> <span class="ruby-operator">+</span> <span class="ruby-number">1</span>)
+        <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+              </div>
+            </div>
+            
+          </div>
