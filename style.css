@@ -5,9 +5,9 @@ body {
 }
 
 #search {
-  font-size: 20pt;
-  height: 50px;
-  width: 500px;
+  font-size: 1.5em;
+  height: 2.5em;
+  width: 75%;
 }
 
 #search_autocomplete {
@@ -15,12 +15,23 @@ body {
   font-size: 13pt;
   margin: 0px;
   padding: 0px;
-  width: 500px;
+  width: 75%;
 }
 
+@media all and (max-width: 600px) {
+  #search {
+    width: 100%;
+  }
+
+  #search_autocomplete {
+    width: 100%;
+  }
+}
+
+
 #search_autocomplete li {
-  margin-bottom: 5px;
-  padding: 10px;
+  margin-bottom: 0.5em;
+  padding: 1em;
 }
 
 #search_autocomplete li:hover, #search_autocomplete .active {
@@ -29,5 +40,11 @@ body {
   font-weight: bold;
 }
 
+.method-title {
+  font-size: 16pt;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  line-height: 120%;
+}
 
 

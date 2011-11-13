@@ -7,17 +7,18 @@
     <script src='underscore.js'></script>
     <script src='backbone.js'></script>
     <script src='sume.js'></script>
+    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0"/>
   </head>
   <body>
     <script id='autocompleteTemplate' type='text/template'>
       <%= model["term"] %>
     </script>
-    <h2>Search:</h2> <input type='text' id='search' autocomplete='off'>
+    <h2>Search:</h2> <input type='text' id='search' autocomplete='off' autocorrect='off' autocapitalize='off'>
     <ul id='search_autocomplete'>
     </ul>
 
     <div id='docs'>
-
+      <small><em>This is just a proof-of-concept. Try searching for "ActiveSupport::Concern" or "distance_of_time_in_words"</em></small>
     </div>
   </body>
 </html>
