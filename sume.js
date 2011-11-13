@@ -11,7 +11,8 @@ Sume.SearchResultList = Backbone.Collection.extend({
 Sume.searchResults = new Sume.SearchResultList()
 
 Sume.SearchEngine = {
-  locations: { "ActiveSupport::Concern": "ActiveSupport/Concern.html",
+  locations: { "ActiveRecord::Base": "ActiveRecord/Base.html",
+               "ActiveSupport::Concern": "ActiveSupport/Concern.html",
                "distance_of_time_in_words": "ActionView/Helpers/DateHelper/distance_of_time_in_words.html",
                "find": "ActiveRecord/FinderMethods/find.html",
                "ActiveRecord::FinderMethods.find": "ActiveRecord/FinderMethods/find.html" },
@@ -25,7 +26,8 @@ Sume.SearchEngine = {
 }
 
 Sume.AutoCompleteController = {
-  autocomplete_data: ["ActiveSupport::Concern",
+  autocomplete_data: ["ActiveRecord::Base",
+                      "ActiveSupport::Concern",
                       "distance_of_time_in_words",
                       "find"],
 
