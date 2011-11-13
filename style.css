@@ -47,4 +47,10 @@ body {
   line-height: 120%;
 }
 
-
+tt {
+  font: 9pt Monaco "Courier New";
+  background: #EFEFEF;
+  padding: 3px;
+  -webkit-border-radius: 5px;
+  border: 1px solid #DEDEDE;
+}
