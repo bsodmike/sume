@@ -19,9 +19,14 @@ Sume.SearchEngine = {
   search: function() {
     $('#search_autocomplete').hide();
     term = $.trim($('#search_autocomplete li.active').text())
-    $.get(this.locations[term], function(html) {
-      $('#docs').html(html)
-    })
+    if (this.locations[term]) {
+      $.get(this.locations[term], function(html) {
+        $('#docs').html(html)
+      })
+    }
+    else {
+      $('#docs').html("<br><h4>Hmm... we couldn't find what you were looking for, sorry!</h4>")
+    }
   }
 }
 
